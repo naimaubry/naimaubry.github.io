@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Naima Aubry-Romero — MIT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f2eb;
+      --ink: #1a1a18;
+      --muted: #6b6760;
+      --accent: #2d5a3d;
+      --accent-light: #e8f0ea;
+      --rule: #d4cfc6;
+      --card: #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(245, 242, 235, 0.9);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .nav-name {
+      font-size: 1rem;
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 80px;
+    }
+
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem 4rem 6rem 4rem;
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name {
+      font-size: clamp(3.5rem, 6vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.3rem;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-title {
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: var(--muted);
+      margin-top: 1.2rem;
+      margin-bottom: 2rem;
+      max-width: 38ch;
+      line-height: 1.6;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.7rem 1.4rem;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: 1px solid var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: #1e3f2b;
+      border-color: #1e3f2b;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--rule);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .hero-visual {
+      position: relative;
+      background: var(--accent-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-photo-placeholder {
+      width: 450px;
+      height: 560px;
+      border: 1px solid var(--rule);
+      background: var(--card);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-align: center;
+      padding: 2rem;
+    }
+    .photo-icon {
+      font-size: 2.5rem;
+      opacity: 0.3;
+    }
+
+    .club-item-with-img {
+      display: flex;
+      gap: 1.4rem;
+      align-items: flex-start;
+    }
+
+    .club-img {
+      width: 110px;      
+      height: 110px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid var(--rule);
+    }
+
+    .hero-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* SECTION SCAFFOLDING */
+    section {
+      padding: 6rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 3rem;
+    }
+
+    .section-title em { font-style: italic; color: var(--accent); }
+
+    hr.divider {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 0 4rem;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-body {
+      font-size: 1.18rem;
+      line-height: 1.85;
+      color: var(--ink);
+    }
+
+    .about-body p + p { margin-top: 1.2rem; }
+
+    .about-sidebar {
+      padding-top: 0.3rem;
+    }
+
+    .sidebar-block {
+      margin-bottom: 2.5rem;
+    }
+
+    .sidebar-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 0.4rem;
+    }
+
+    .sidebar-list {
+      list-style: none;
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: var(--ink);
+    }
+
+    .sidebar-list li::before {
+      content: "→ ";
+      color: var(--accent);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+    }
+
+    /* RESEARCH */
+    .research-list { display: flex; flex-direction: column; gap: 2rem; }
+
+    .research-card {
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-left: 3px solid var(--accent);
+      padding: 2rem 2.5rem;
+      transition: box-shadow 0.2s;
+    }
+
+    .research-card:hover {
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+
+    .research-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .research-card h3 {
+      font-size: 1.55rem;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.63rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+
+    .tag-green { background: var(--accent-light); color: var(--accent); }
+    .tag-muted { background: #f0ede8; color: var(--muted); }
+
+    .research-card p {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .research-card-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .research-img {
+      width: 100%;
+      height: 300px;        
+      object-fit: cover;    
+      display: block;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    /* PUBLICATIONS */
+    .pub-list { display: flex; flex-direction: column; gap: 0; }
+
+    .pub-item {
+      padding: 1.8rem 0;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .pub-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      padding-top: 0.2rem;
+      min-width: 42px;
+    }
+
+    .pub-title {
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 1.4;
+      margin-bottom: 0.3rem;
+    }
+
+    .pub-authors {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 0.3rem;
+    }
+
+    .pub-venue {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+    }
+
+    .pub-link {
+      display: inline-block;
+      margin-top: 0.4rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .pub-link:hover { border-color: var(--accent); }
+
+
+    /* CLUBS */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+
+    .interest-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .interest-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.2rem 1.5rem;
+      border: 1px solid var(--rule);
+      background: var(--card);
+      transition: border-color 0.2s;
+    }
+
+    .interest-item:hover { border-color: var(--accent); }
+
+    .interest-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .interest-text h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .interest-text p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .club-list { display: flex; flex-direction: column; gap: 1rem; }
+
+    .club-item {
+      padding: 1.3rem 1.5rem;
+      border: 1px solid var(--rule);
+      background: var(--card);
+      transition: border-color 0.2s;
+    }
+
+    .club-item:hover { border-color: var(--accent); }
+
+    .club-name {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .club-role {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .club-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* CONTACT */
+    .contact-section {
+      background: var(--accent);
+      color: #fff;
+      padding: 5rem 4rem;
+      text-align: center;
+    }
+
+    .contact-section .section-label { color: rgba(255,255,255,0.5); }
+
+    .contact-section .section-title { color: #fff; margin-bottom: 1.5rem; }
+
+    .contact-section p {
+      color: rgba(255,255,255,0.75);
+      font-size: 1.1rem;
+      max-width: 50ch;
+      margin: 0 auto 2.5rem;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-white {
+      background: #fff;
+      color: var(--accent);
+      border: 1px solid #fff;
+    }
+
+    .btn-white:hover { background: rgba(255,255,255,0.9); }
+
+    .btn-ghost {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+
+    .btn-ghost:hover { border-color: #fff; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2rem 4rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      border-top: 1px solid var(--rule);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-text > * {
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    .hero-eyebrow  { animation-delay: 0.1s; }
+    .hero-name     { animation-delay: 0.25s; }
+    .hero-title    { animation-delay: 0.4s; }
+    .hero-links    { animation-delay: 0.55s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+
+      .hero { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .hero-text { padding: 5rem 1.5rem 4rem; }
+
+      section { padding: 4rem 1.5rem; }
+      hr.divider { margin: 0 1.5rem; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .two-col { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      .contact-section { padding: 4rem 1.5rem; }
+      footer { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-name">Naima Aubry-Romero</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#Clubs">Clubs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding: 0; max-width: none;">
+  <div class="hero-text">
+    <p class="hero-eyebrow">MIT · Course 22 - Nuclear Engineering</p>
+    <h1 class="hero-name">Naima <em>Aubry-Romero</em><br></h1>
+    <div class="hero-links">
+      <a href="mailto:naubry@mit.edu" class="btn btn-primary">Get in Touch</a>
+      <a href="#research" class="btn btn-outline">View Research</a>
+      <a href="https://drive.google.com/file/d/1EBOJyRFzZvuqbGs3HLc355wixbzXlI-9/view?usp=sharing" class="btn btn-outline">CV ↗</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+  <div class="hero-photo-placeholder">
+    <img src="headshot_final.png" alt="description" class="hero-photo">
+  </div>
+</div>
+</section>
+
+<hr class="divider">
+
+<!-- ABOUT -->
+<section id="about">
+  <h2 class="section-title">About <em>Me</em></h2>
+  <div class="about-grid">
+    <div class="about-body">
+      <p>
+        Freshman at MIT interested in mechanical engineering, applying mathematics, physics, and computational methods to problems in fluid dynamics, turbulence, and nuclear energy systems.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- RESEARCH -->
+<section id="research">
+  <p class="section-label">Work</p>
+  <h2 class="section-title">Current <em>Research</em></h2>
+  <div class="research-list">
+
+    <div class="research-card">
+
+      <img src="CFD_Hills.png" alt="Periodic Hills visualization" class="research-img" />
+      <div class="research-card-header">
+        <h3>Development and Evaluation of a Hybrid Turbulence Model for Improved Nuclear CFD Predictions</h3>
+      </div>
+      <p>
+        Conducting computational fluid dynamics research focused on turbulence modeling for nuclear applications under Emilio Baglietto, implementing and benchmarking LES, k–ε, k–ω, Spalart–Allmaras, and STRUCT models on separated-flow cases, such as the periodic hills test case.
+        Work includes deriving and coding additional transport terms, using OpenFOAM to run simulations and develop scripts, and ensure numerical stability while comparing production, dissipation, and nonlocal effects across models. Building toward development of a hybrid turbulence model, with validation on benchmark cases and potential publication of results.
+
+      </p>
+      <div class="research-card-meta">MIT Department of Nuclear Science and Engineering  / Emilio Baglietto &nbsp;·&nbsp; 2025–present</div>
+    </div>
+
+  </div>
+
+    <div style="margin-top: 3.5rem;">
+    <p class="sidebar-label" style="margin-bottom: 1.5rem; font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); border-bottom: 1px solid var(--rule); padding-bottom: 0.6rem;">Published Research</p>
+    <div class="pub-list">
+      <div class="pub-item" style="border-top: 1px solid var(--rule);">
+        <span class="pub-year">2024</span>
+        <div>
+          <div class="pub-title">Modeling, Analysis, and Prediction of COVID-19 Dynamics with Interacting Subpopulations and Implicit Behavior Using Physics-Informed Neural Networks</div>
+          <div class="pub-authors">Naima Aubry-Romero, Alonso Ogueda-Oliva, Padmanabhan Seshaiyer (George Mason University)</div>
+          <div class="pub-venue">Spora: A Journal of Biomathematics </div>
+          <a href="https://ir.library.illinoisstate.edu/spora/vol11/iss1/8" class="pub-link">Publication ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<hr class="divider">
+
+
+<!-- CLUBS -->
+<section id="Clubs">
+  <p class="section-label">Beyond Research</p>
+  <h2 class="section-title">Clubs &amp; <em>Organizations</em></h2>
+  <div>
+ 
+    <div class="club-list">
+      <div class="club-item club-item-with-img">
+        <img src="rollator_CAD.png" alt="Assistive Technology" class="club-img" />
+        <div class="club-body">
+          <div class="club-name">Assistive Technology</div>
+          <div class="club-role">Rollator Team · 2025–present</div>
+          <p class="club-desc">Designed and prototyped targeted modifications to a rollator—including a high-friction seat, extendable support bars, and a backrest—to improve stability and usability for a specific user.</p>
+        </div>
+      </div>
+      <div class="club-item club-item-with-img">
+        <img src="engine_SET.png" alt="Club Name" class="club-img" />
+        <div class="club-body">
+          <div class="club-name">Sustainable Engine Team</div>
+          <div class="club-role">Combustion Team · 2025–present</div>
+          <p class="club-desc">My team and I are designing a reverse flow combustor for a hydrogen powered jet engine. We are coding a hand calculation model for the combustor and will conduct CFD simulations. </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div id="contact" class="contact-section">
+  <p class="section-label">Contact</p>
+  <div class="contact-links">
+    <a href="mailto:naubry@mit.edu" class="btn btn-white">naubry@mit.edu</a>
+    <a href="https://github.com/naimaubry" class="btn btn-ghost" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/naima-aubry-romero" class="btn btn-ghost" target="_blank">LinkedIn</a>
+    <a href="https://drive.google.com/file/d/1EBOJyRFzZvuqbGs3HLc355wixbzXlI-9/view?usp=sharing" class="btn btn-ghost">Download CV</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 Naima Aubry-Romero &nbsp;·&nbsp; MIT &nbsp;·&nbsp; Built with GitHub Pages
+</footer>
+
+</body>
+</html>
